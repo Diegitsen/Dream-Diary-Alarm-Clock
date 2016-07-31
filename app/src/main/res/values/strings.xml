@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Dream Catcher Alarm Clock</string>
+    <string name="wake_up">Wake up</string>
+    <string name="dear_diary">Dear diary...\n</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="record_your_dream">Record your dream</string>
+    <string name="write_your_dream">Write your dream</string>
+    <string name="description">Description</string>
+    <string name="one_time">One time</string>
+    <string name="new_alarm">New Alarm</string>
+</resources>
