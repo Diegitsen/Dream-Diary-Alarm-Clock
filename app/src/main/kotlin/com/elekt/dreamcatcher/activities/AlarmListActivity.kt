@@ -2,10 +2,12 @@ package com.elekt.dreamcatcher.activities
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import com.elekt.dreamcatcher.*
 import com.elekt.dreamcatcher.model.Alarm
 import com.elekt.dreamcatcher.utils.TimePickerFragment
@@ -16,6 +18,25 @@ import java.util.*
 class AlarmListActivity : AppCompatActivity() {
     private var adapter: AlarmListAdapter? = null
     private val gson = Gson()
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        val inflater = menuInflater
+        inflater.inflate(R.menu.alarm_list_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item!!.itemId){
+            R.id.open_dream_diary -> {
+                val i = Intent(applicationContext, DreamSavingActivity::class.java)
+                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                i.putExtra(PLAY_ALARM_SOUND, false)
+                applicationContext.startActivity(i)
+            }
+        }
+        return true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

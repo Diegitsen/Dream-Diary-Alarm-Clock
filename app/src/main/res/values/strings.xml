@@ -9,4 +9,7 @@
     <string name="description">Description</string>
     <string name="one_time">One time</string>
     <string name="new_alarm">New Alarm</string>
+    <string name="open_dream_diary">Open diary</string>
+    <string name="alarm_clock">Alarm Clock</string>
+    <string name="dream_diary">Dream Diary</string>
 </resources>
