@@ -64,5 +64,11 @@ class AlarmListActivity : AppCompatActivity() {
 
         alarm_list.adapter = adapter
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        adapter!!.notifyDataSetChanged()
+    }
 }
 
