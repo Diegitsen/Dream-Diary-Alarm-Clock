@@ -5,10 +5,10 @@ import android.content.Intent
 import android.media.MediaRecorder
 import android.media.RingtoneManager
 import android.os.Bundle
-import android.os.Environment
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
-import com.elekt.dreamcatcher.DIRECTORY
+import android.widget.Toast
+import com.elekt.dreamcatcher.DIARY_DIRECTORY_FILE
 import com.elekt.dreamcatcher.PLAY_ALARM_SOUND
 import com.elekt.dreamcatcher.R
 import kotlinx.android.synthetic.main.dream_caching_activity.*
@@ -19,7 +19,6 @@ import java.util.*
 
 class DreamSavingActivity : AppCompatActivity() {
 
-    private val DIARY_DIRECTORY_FILE = File(Environment.getExternalStorageDirectory().path.plus("/DreamDiary/"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +62,7 @@ class DreamSavingActivity : AppCompatActivity() {
             recordDialog.setButton(ProgressDialog.BUTTON_POSITIVE, "Stop Recording", { dialogInterface, i ->
                 mediaRecorder.stop()
                 mediaRecorder.release()
+                Toast.makeText(applicationContext, "Dream saved to: ".plus(DIARY_DIRECTORY_FILE.path), Toast.LENGTH_LONG).show()
                 finish()
             })
             recordDialog.show()
@@ -74,7 +74,6 @@ class DreamSavingActivity : AppCompatActivity() {
             }
 
             val i = Intent(this@DreamSavingActivity, WriteDreamActivity::class.java)
-            i.putExtra(DIRECTORY, DIARY_DIRECTORY_FILE.path)
             startActivity(i)
             finish()
         }
