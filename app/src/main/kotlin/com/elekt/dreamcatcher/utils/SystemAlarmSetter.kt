@@ -2,7 +2,6 @@ package com.elekt.dreamcatcher.utils
 
 import android.app.AlarmManager
 import android.content.Context
-import android.preference.PreferenceManager
 import com.elekt.dreamcatcher.ALARM_STRING_SET
 import com.elekt.dreamcatcher.SHARED_PREFERENCES_NAME
 import com.elekt.dreamcatcher.model.Alarm
@@ -19,6 +18,12 @@ class SystemAlarmSetter(val context: Context) {
     fun setRepeatingAlarm(alarm: Alarm){
         removeAlarmFromSharedPreferences(alarm)
         alarm.isRepeating = true
+        // if the alarm is in the past it would make an instant trigger, need to reset the date
+        val nowCalendar = Calendar.getInstance()
+        alarm.calendar.set(nowCalendar.get(Calendar.YEAR), nowCalendar.get(Calendar.MONTH), nowCalendar.get(Calendar.DATE))
+        if(alarm.calendar.before(nowCalendar)){
+            alarm.calendar.add(Calendar.DATE, 1)
+        }
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarm.calendar.time.time, 24*60*60*1000, alarm.getAlarmIntent(context))
         saveAlarmToSharedPreferences(alarm)
 
