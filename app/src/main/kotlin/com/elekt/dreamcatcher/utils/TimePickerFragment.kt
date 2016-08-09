@@ -1,19 +1,13 @@
 package com.elekt.dreamcatcher.utils
 
-import android.app.AlarmManager
 import android.app.Dialog
-import android.app.PendingIntent
 import android.app.TimePickerDialog
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.text.format.DateFormat
 import android.widget.TimePicker
 import com.elekt.dreamcatcher.AlarmListAdapter
-import com.elekt.dreamcatcher.utils.SystemAlarmSetter
 import com.elekt.dreamcatcher.model.Alarm
-import com.elekt.dreamcatcher.model.AlarmIntentSettings
 import java.util.*
 
 class TimePickerFragment() : DialogFragment(), TimePickerDialog.OnTimeSetListener {
@@ -29,12 +23,14 @@ class TimePickerFragment() : DialogFragment(), TimePickerDialog.OnTimeSetListene
     }
 
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
-        val alarmDate = getAlarmDate(hourOfDay, minute)
-        val alarm = Alarm(alarmDate)
-        val systemAlarmSetter = SystemAlarmSetter(context)
+        if(view.isShown) {
+            val alarmDate = getAlarmDate(hourOfDay, minute)
+            val alarm = Alarm(alarmDate)
+            val systemAlarmSetter = SystemAlarmSetter(context)
 
-        systemAlarmSetter.setOneTimeAlarm(alarm)
-        alarmListAdapter!!.add(alarm)
+            systemAlarmSetter.setOneTimeAlarm(alarm)
+            alarmListAdapter!!.add(alarm)
+        }
     }
 
     fun getAlarmDate(hourOfDay: Int, minute: Int): Calendar {
